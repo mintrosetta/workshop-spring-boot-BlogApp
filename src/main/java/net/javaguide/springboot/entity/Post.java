@@ -42,14 +42,14 @@ public class Post {
 	@Column(name = "content")
 	private String content;
 	
-	@Column(name = "shortDescription")
+	@Column(name = "short_description")
 	private String shortDescription;
 	
-	@Column(name = "createdOn")
+	@Column(name = "created_on")
 	@CreationTimestamp // create timestamp when create data
 	private LocalDateTime createdOn;
 	
-	@Column(name = "updatedOn")
+	@Column(name = "updated_on")
 	@UpdateTimestamp // create timestamp when update data
 	private LocalDateTime updatedOn;
 }
