@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Spring Boot Thymeleaf Blog App</title>
@@ -10,6 +10,29 @@
 	crossorigin="anonymous">
 </head>
 <body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container">
+			<a class="navbar-brand" href="#">Blog App</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" th:href="@{/admin/posts}">Posts</a>
+					</li>
+				</ul>
+				<form class="d-flex">
+					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+					<button class="btn btn-outline-success" type="submit">Search</button>
+				</form>
+			</div>
+		</div>
+	</nav>
+
 	<div class="container">
 		<div class="row">
 			<h1>Blog Posts</h1>
@@ -30,12 +53,18 @@
 					<td th:text="*{title}"></td>
 					<td th:text="*{shortDescription}"></td>
 					<td th:text="*{createdOn}"></td>
-					<td>
-						
-					</td>
+					<td></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
+	
+	<footer class="footer-copyright text-center py-3" style="position: fixed; height: 80px; width:100%; bottom: 0;">
+		<div >
+			<strong>
+				Copyright &copy; 2024 <a href="https://www.javaguides.net">Java Guides</a> all right reserved.
+			</strong>
+		</div>
+	</footer>
 </body>
 </html>
