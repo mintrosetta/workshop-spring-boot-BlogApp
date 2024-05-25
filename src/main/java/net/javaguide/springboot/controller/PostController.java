@@ -29,4 +29,13 @@ public class PostController {
 		return "admin/posts";
 	}
 	
+	@GetMapping("create")
+	public String createPost(Model model) {
+		PostDto post = new PostDto();
+		
+		model.addAttribute("post", post);
+		
+		return "admin/post-create";
+	}
+	
 }
