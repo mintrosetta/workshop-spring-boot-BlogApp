@@ -4,11 +4,13 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.validation.Valid;
 import net.javaguide.springboot.dto.PostDto;
 import net.javaguide.springboot.service.PostService;
 
@@ -41,8 +43,15 @@ public class PostController {
 	}
 	
 	// @ModelAttribute read form data and set the value to field in object
+	// @Valid
 	@PostMapping("create")
-	public String createPost(@ModelAttribute PostDto postDto) {
+	public String createPost(@Valid @ModelAttribute("post") PostDto postDto, BindingResult result, Model model) {
+		if (result.hasErrors())
+		{
+			model.addAttribute("post", postDto);
+			return "admin/post-create";
+		}
+		
 		postDto.setUrl(getUrl(postDto.getTitle()));
 		
 		this.postService.createPost(postDto);
