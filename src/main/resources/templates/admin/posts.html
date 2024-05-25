@@ -32,7 +32,9 @@
 					<td th:text="*{title}"></td>
 					<td th:text="*{shortDescription}"></td>
 					<td th:text="*{createdOn}"></td>
-					<td></td>
+					<td>
+						<a class="btn btn-primary" th:href="@{/admin/posts/{postId}/edit(postId=*{id})}">Edit</a>
+					</td>
 				</tr>
 			</tbody>
 		</table>

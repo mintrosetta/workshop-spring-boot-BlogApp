@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/header :: header(title='ADMIN - Edit post')"></head>
+<body>
+	<nav th:replace="common/navbar :: navbar"></nav>
+
+	<div class="container">
+		<div class="row col-md-8 offset-md-2">
+			<div class="card mt-5">
+				<div class="card-header">
+					<h2 class="text-center">Edit Post</h2>
+
+					<form th:action="@{/admin/posts/edit}" method="post"
+						th:object="${post}">
+						<input type="hidden" th:field="*{id}">
+						<input type="hidden" th:field="*{url}">
+						<input type="hidden" th:field="*{createdOn}">
+						<div class="mb-3">
+							<label class="form-label">Title</label> <input type="text"
+								class="form-control" id="title" name="title" th:field="*{title}">
+							<!-- fields is object create by spring for validate input has errors -->
+							<p th:if="${#fields.hasErrors('title')}" class="text-danger"
+								th:errors="*{title}"></p>
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Short Description</label>
+							<textarea class="form-control" id="shortDescription" rows="3"
+								name="shortDescription" th:field="*{shortDescription}"></textarea>
+							<p th:if="${#fields.hasErrors('shortDescription')}"
+								class="text-danger" th:errors="*{shortDescription}"></p>
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Content</label>
+							<textarea class="form-control" id="content" rows="8"
+								name="content" th:field="*{content}"></textarea>
+							<p th:if="${#fields.hasErrors('content')}" class="text-danger"
+								th:errors="*{content}"></p>
+						</div>
+						<button type="submit" class="btn btn-primary">Create</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="common/footer :: footer"></footer>
+
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+		integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+	<script>
+    	ClassicEditor
+        	.create(document.querySelector('#content'))
+        	.catch(error => {
+            	console.error( error );
+        	});
+	</script>
+
+</body>
+</html>
