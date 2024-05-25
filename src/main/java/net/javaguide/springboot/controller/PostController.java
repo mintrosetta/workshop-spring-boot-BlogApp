@@ -16,7 +16,7 @@ import net.javaguide.springboot.dto.PostDto;
 import net.javaguide.springboot.service.PostService;
 
 @Controller
-@RequestMapping("/admin/posts")
+@RequestMapping("admin/posts")
 public class PostController {
 	
 	private PostService postService;
@@ -67,6 +67,23 @@ public class PostController {
 		model.addAttribute("post", post);
 		
 		return "admin/post-edit";
+	}
+	
+	@PostMapping("{postId}/edit")
+	public String updatePost(
+			@PathVariable("postId") Long id, 
+			@ModelAttribute("post") PostDto postDto, 
+			Model model, 
+			BindingResult result) {
+		if (result.hasErrors())
+		{
+			model.addAttribute("post", postDto);
+			return "admin/post-edit";
+		}
+		
+		this.postService.updatePost(postDto);
+		
+		return "redirect:/admin/posts";
 	}
 	
 	private static String getUrl(String title) {

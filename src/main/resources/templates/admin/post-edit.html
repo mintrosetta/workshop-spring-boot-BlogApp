@@ -10,8 +10,7 @@
 				<div class="card-header">
 					<h2 class="text-center">Edit Post</h2>
 
-					<form th:action="@{/admin/posts/edit}" method="post"
-						th:object="${post}">
+					<form th:object="${post}" th:action="@{/admin/posts/{postId}/edit(postId=*{id})}" method="post">
 						<input type="hidden" th:field="*{id}">
 						<input type="hidden" th:field="*{url}">
 						<input type="hidden" th:field="*{createdOn}">

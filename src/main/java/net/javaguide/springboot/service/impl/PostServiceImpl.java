@@ -40,4 +40,11 @@ public class PostServiceImpl implements PostService {
 		return PostMapper.mapToPostDto(post);
 	}
 
+	@Override
+	public void updatePost(PostDto postDto) {
+		Post post = PostMapper.mapToPost(postDto);
+		
+		this.postRepository.save(post);
+	}
+
 }
