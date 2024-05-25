@@ -27,4 +27,11 @@ public class PostServiceImpl implements PostService {
 		return posts.stream().map((post) -> PostMapper.mapToPostDto(post)).collect(Collectors.toList());
 	}
 
+	@Override
+	public void createPost(PostDto postDto) {
+		Post post = PostMapper.mapToPost(postDto);
+		
+		this.postRepository.save(post);
+	}
+
 }

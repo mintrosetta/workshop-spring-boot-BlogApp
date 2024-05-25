@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import net.javaguide.springboot.dto.PostDto;
@@ -38,4 +40,21 @@ public class PostController {
 		return "admin/post-create";
 	}
 	
+	// @ModelAttribute read form data and set the value to field in object
+	@PostMapping("create")
+	public String createPost(@ModelAttribute PostDto postDto) {
+		postDto.setUrl(getUrl(postDto.getTitle()));
+		
+		this.postService.createPost(postDto);
+		
+		return "redirect:/admin/posts";
+	}
+	
+	private static String getUrl(String title) {
+		// FROM: OOPS Concept Explained in Java TO: oops-concept-explained-in-java
+		String tempTitle = title.trim().toLowerCase();
+		String url = tempTitle.replaceAll("\\s+", "-").replaceAll("[^A-Za-z0-9]", "-");
+		
+		return url;
+	}
 }
