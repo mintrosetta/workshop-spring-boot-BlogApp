@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import net.javaguide.springboot.dto.PostDto;
@@ -26,5 +27,14 @@ public class BlogController {
 		model.addAttribute("posts", postDtos);
 		
 		return "blog/post-views";
+	}
+	
+	@GetMapping("{postUrl}")
+	public String getBlogView(@PathVariable("postUrl") String url, Model model) {
+		PostDto postDto = this.postService.findPostByUrl(url);
+		
+		model.addAttribute("post", postDto);
+		
+		return "blog/post-view";
 	}
 }
