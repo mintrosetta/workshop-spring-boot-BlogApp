@@ -86,6 +86,13 @@ public class PostController {
 		return "redirect:/admin/posts";
 	}
 	
+	@GetMapping("{postId}/delete")
+	public String deletePost(@PathVariable("postId") Long id) {
+		this.postService.deletePost(id);
+		
+		return "redirect:/admin/posts";
+	}
+	
 	private static String getUrl(String title) {
 		// FROM: OOPS Concept Explained in Java TO: oops-concept-explained-in-java
 		String tempTitle = title.trim().toLowerCase();
