@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/header :: header('ADMIN - View post')"></head>
+<body>
+	<nav th:replace="common/navbar :: navbar"></nav>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 offset-md-2" th:object="${post}">
+				<h2 th:text="*{title}"></h2>
+				<hr/>
+				<h4 th:text="*{shortDescription}"></h4>
+				<hr/>
+				<!-- utext = use for display unescaped text ex. HTML tag -->
+				<div th:utext="*{content}">
+				
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<footer th:replace="common/footer :: footer"></footer>
+</body>
+</html>
