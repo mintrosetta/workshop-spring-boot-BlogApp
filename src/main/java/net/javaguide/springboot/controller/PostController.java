@@ -93,6 +93,15 @@ public class PostController {
 		return "redirect:/admin/posts";
 	}
 	
+	@GetMapping("{postUrl}/view")
+	public String viewPost(@PathVariable("postUrl") String postUrl, Model model) {
+		PostDto postDto = this.postService.findPostByUrl(postUrl);
+		
+		model.addAttribute("post", postDto);
+		
+		return "admin/post-view";
+	}
+	
 	private static String getUrl(String title) {
 		// FROM: OOPS Concept Explained in Java TO: oops-concept-explained-in-java
 		String tempTitle = title.trim().toLowerCase();
