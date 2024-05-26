@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.validation.Valid;
 import net.javaguide.springboot.dto.PostDto;
@@ -100,6 +101,15 @@ public class PostController {
 		model.addAttribute("post", postDto);
 		
 		return "admin/post-view";
+	}
+	
+	@GetMapping("search")
+	public String searchPost(@RequestParam(value = "search") String search, Model model) {
+		List<PostDto> posts = this.postService.searchPost(search);
+		
+		model.addAttribute("posts", posts);
+		
+		return "admin/posts";
 	}
 	
 	private static String getUrl(String title) {
