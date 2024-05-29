@@ -34,6 +34,11 @@
 										name="name" 
 										placeholder="enter name" 
 										th:field="*{name}">
+									<p 
+										th:if="${#fields.hasErrors('name')}"
+										th:errors="*{name}"
+										class="text-danger">
+									</p>
 								</div>
 							</div>
 							
@@ -46,6 +51,11 @@
 										name="email" 
 										placeholder="enter email" 
 										th:field="*{email}">
+									<p 
+										th:if="${#fields.hasErrors('email')}"
+										th:errors="*{email}"
+										class="text-danger">
+									</p>
 								</div>
 							</div>
 							
@@ -58,6 +68,11 @@
 										name="content"
 										placeholder="enter a comment"
 										th:field="*{content}"></textarea>
+									<p 
+										th:if="${#fields.hasErrors('content')}"
+										th:errors="*{content}"
+										class="text-danger">
+									</p>
 								</div>
 							</div>
 							
