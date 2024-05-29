@@ -21,7 +21,7 @@
 					</div>
 					<div class="card-body">
 						<form 
-							th:action="@{/posts/{postUrl}/comments(postUrl=${post.url})}" 
+							th:action="@{/comments/{postUrl}/post(postUrl=${post.url})}" 
 							method="post"
 							th:object="${comment}">
 							
