@@ -13,9 +13,67 @@
 				<hr/>
 				<!-- utext = use for display unescaped text ex. HTML tag -->
 				<div th:utext="*{content}"></div>
+				<hr>
+				<h3>Comment</h3>
+				<div class="card">
+					<div class="card-header">
+						<h3>Leave a comment</h3>
+					</div>
+					<div class="card-body">
+						<form 
+							th:action="@{/posts/{postUrl}/comments(postUrl=${post.url})}" 
+							method="post"
+							th:object="${comment}">
+							
+							<div class="row">
+								<div class="col-md-5 md-3">
+									<input 
+										type="text" 
+										class="form-control" 
+										id="name" 
+										name="name" 
+										placeholder="enter name" 
+										th:field="*{name}">
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-md-5 md-3">
+									<input 
+										type="text" 
+										class="form-control" 
+										id="email" 
+										name="email" 
+										placeholder="enter email" 
+										th:field="*{email}">
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-md-5 md-3">
+									<textarea 
+										rows="5" 
+										class="form-control"
+										id="content"
+										name="content"
+										placeholder="enter a comment"
+										th:field="*{content}"></textarea>
+								</div>
+							</div>
+							
+							<div class="row">
+								<div class="col-md-5 md-3">
+									<button 
+										class="btn btn-primary"
+										type="submit">Submit</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
 			</div>
 			<div class="col-md-3">
-				
+				<div th:replace="common/search :: search"></div>
 			</div>
 		</div>
 	</div>
