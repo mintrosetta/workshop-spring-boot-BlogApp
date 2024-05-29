@@ -15,6 +15,19 @@
 				<div th:utext="*{content}"></div>
 				<hr>
 				<h3>Comment</h3>
+				<div th:each="comment : *{comments}" th:object="${comment}">
+					<div>
+						<p>
+							<b>Name:</b>
+							<strong th:text="*{name}"></strong>
+						</p>
+						<p>
+							<b>Date:</b>
+							<strong th:text="*{#temporals.format(createdOn, 'dd MMMM yyyy')}"></strong>
+						</p>
+						<p th:text="*{content}"></p>
+					</div>
+				</div>
 				<div class="card">
 					<div class="card-header">
 						<h3>Leave a comment</h3>
