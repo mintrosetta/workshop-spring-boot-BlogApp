@@ -56,4 +56,9 @@ public class AuthController {
 		
 		return "auth/register";
 	}
+	
+	@GetMapping("login")
+	public String getLoginPage(Model model) {
+		return "auth/login";
+	}
 }
