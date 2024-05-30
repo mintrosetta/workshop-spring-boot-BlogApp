@@ -9,6 +9,12 @@
 			<div class="card-header">
 				<h2 class="text-center">Register</h2>
 			</div>
+			<!-- if parameter url have a success like /auth/register?success -->
+			<div th:if="${param.success}">
+				<div class="alert alert-info">
+					You habe registered successfully to our blog app!
+				</div>
+			</div>
 			<div class="card-body">
 				<form th:action="@{/auth/register}" th:object="${user}" method="POST">
 					<div class="form-group mb-3">
