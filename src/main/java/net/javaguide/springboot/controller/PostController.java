@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.validation.Valid;
+import net.javaguide.springboot.dto.CommentDto;
 import net.javaguide.springboot.dto.PostDto;
+import net.javaguide.springboot.service.CommentService;
 import net.javaguide.springboot.service.PostService;
 
 @Controller
@@ -21,9 +23,11 @@ import net.javaguide.springboot.service.PostService;
 public class PostController {
 	
 	private PostService postService;
+	private CommentService commentService;
 	
-	public PostController(PostService postService) {
+	public PostController(PostService postService, CommentService commentServiec) {
 		this.postService = postService;
+		this.commentService = commentServiec;
 	}
 	
 	@GetMapping("")
@@ -110,6 +114,15 @@ public class PostController {
 		model.addAttribute("posts", posts);
 		
 		return "admin/posts";
+	}
+	
+	@GetMapping("comments")
+	public String postComments(Model model) {
+		List<CommentDto> comments = this.commentService.findAllComments();
+		
+		model.addAttribute("comments", comments);
+		
+		return "admin/comments";
 	}
 	
 	private static String getUrl(String title) {

@@ -1,5 +1,8 @@
 package net.javaguide.springboot.service.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 
 import net.javaguide.springboot.dto.CommentDto;
@@ -29,6 +32,12 @@ public class CommentServiceImpl implements CommentService {
 		comment.setPost(post);
 		
 		this.commentRepository.save(comment);
+	}
+
+	@Override
+	public List<CommentDto> findAllComments() {
+		List<Comment> comments = this.commentRepository.findAll();
+		return comments.stream().map(comment -> CommentMapper.mapToCommentDto(comment)).collect(Collectors.toList());
 	}
 
 }
