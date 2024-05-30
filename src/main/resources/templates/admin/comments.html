@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/header :: header(title='ADMIN - Comments')"></head>
+<body>
+	<nav th:replace="common/navbar :: navbar"></nav>
+	
+	<div class="container">
+		<div class="row">
+			<h1>List of Comments</h1>		
+		</div>
+		<br>
+		<table class="table table-striped table-hover table-bordered">
+			<thead class="table-dark">
+				<tr>
+					<th>#</th>
+					<th>Email</th>
+					<th>Comment</th>
+					<th>Created Date</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="comment, commentStat : ${comments}" th:object="${comment}">
+					<td th:text="${commentStat.count}"></td>
+					<td th:text="*{email}"></td>
+					<td th:text="*{content}"></td>
+					<td th:text="*{#temporals.format(createdOn, 'dd MMM yyyy')}"></td>
+					<td></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
