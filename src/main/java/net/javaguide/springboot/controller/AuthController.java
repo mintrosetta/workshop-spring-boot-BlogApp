@@ -2,12 +2,15 @@ package net.javaguide.springboot.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.validation.Valid;
 import net.javaguide.springboot.dto.RegisterDto;
+import net.javaguide.springboot.entity.User;
 import net.javaguide.springboot.service.UserService;
 
 @Controller
@@ -30,9 +33,27 @@ public class AuthController {
 	}
 	
 	@PostMapping("register")
-	public String register(@ModelAttribute("user") RegisterDto user, Model model) {
+	public String registerUser(
+			@Valid @ModelAttribute("user") RegisterDto user, 
+			BindingResult result,
+			Model model) {	
+		User userExiting = null;
+		if (!user.getEmail().isEmpty()) {
+			userExiting = this.userService.findByEmail(user.getEmail());
+		}
+		
+		if (userExiting != null) {
+			result.rejectValue("email", null, "User email is exiting");
+		}
+		
+		if (result.hasErrors()) {
+			model.addAttribute("user", user);
+			
+			return "auth/register";
+		}
+		
 		this.userService.saveUser(user);
 		
-		return "redirect:/auth/register?success";
+		return "auth/register";
 	}
 }

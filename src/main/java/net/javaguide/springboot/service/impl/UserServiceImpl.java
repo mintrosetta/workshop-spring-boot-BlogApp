@@ -35,6 +35,11 @@ public class UserServiceImpl implements UserService  {
 		user.setRoles(Arrays.asList(role));
 		
 		this.userRepository.save(user);
+	}
+
+	@Override
+	public User findByEmail(String email) {
+		return this.userRepository.findByEmail(email);
 	} 
 
 }
