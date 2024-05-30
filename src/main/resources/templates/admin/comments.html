@@ -25,7 +25,9 @@
 					<td th:text="*{email}"></td>
 					<td th:text="*{content}"></td>
 					<td th:text="*{#temporals.format(createdOn, 'dd MMM yyyy')}"></td>
-					<td></td>
+					<td>
+						<a class="btn btn-danger" th:href="@{/admin/posts/comments/{commentId}/remove(commentId=*{id})}">Remove</a>
+					</td>
 				</tr>
 			</tbody>
 		</table>

@@ -125,6 +125,13 @@ public class PostController {
 		return "admin/comments";
 	}
 	
+	@GetMapping("comments/{commentId}/remove")
+	public String removeComment(@PathVariable("commentId") Long id, Model model) {
+		this.commentService.removeComment(id);
+		
+		return "redirect:/admin/posts/comments";
+	}
+	
 	private static String getUrl(String title) {
 		// FROM: OOPS Concept Explained in Java TO: oops-concept-explained-in-java
 		String tempTitle = title.trim().toLowerCase();

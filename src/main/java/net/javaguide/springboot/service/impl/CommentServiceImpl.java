@@ -40,4 +40,10 @@ public class CommentServiceImpl implements CommentService {
 		return comments.stream().map(comment -> CommentMapper.mapToCommentDto(comment)).collect(Collectors.toList());
 	}
 
+	@Override
+	public void removeComment(Long id) {
+		this.commentRepository.deleteById(id);
+		
+	}
+
 }
