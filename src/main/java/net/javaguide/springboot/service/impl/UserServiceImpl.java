@@ -2,6 +2,7 @@ package net.javaguide.springboot.service.impl;
 
 import java.util.Arrays;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import net.javaguide.springboot.dto.RegisterDto;
@@ -16,13 +17,13 @@ public class UserServiceImpl implements UserService  {
 	
 	private UserRepository userRepository;
 	private RoleRepository roleRepository;
+	private PasswordEncoder passwordEncoder;
 	
-	public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository) {
+	public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
 		this.userRepository = userRepository;
 		this.roleRepository = roleRepository;
+		this.passwordEncoder = passwordEncoder;
 	}
-
-
 
 	@Override
 	public void saveUser(RegisterDto registerDto) {
@@ -31,7 +32,7 @@ public class UserServiceImpl implements UserService  {
 		User user = new User();
 		user.setUsername(registerDto.getFirstName() + " " + registerDto.getLastName());
 		user.setEmail(registerDto.getEmail());
-		user.setPassword(registerDto.getPassword()); // use spring security to encrypt password
+		user.setPassword(this.passwordEncoder.encode(registerDto.getPassword())); // use spring security to encrypt password
 		user.setRoles(Arrays.asList(role));
 		
 		this.userRepository.save(user);
