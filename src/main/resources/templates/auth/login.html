@@ -5,6 +5,12 @@
 	<nav th:replace="~{common/navbar :: navbar}"></nav>
 	
 	<div class="container">
+		<div th:if="${param.error}">
+			<p class="alert alert-danger">Invalid email or password</p>
+		</div>
+		<div th:if="${param.logout}">
+			<p class="alert alert-success">You are logged out!</p>
+		</div>
 		<div class="card">
 			<div class="card-header">
 				<h2 class="text-center">Login</h2>
