@@ -27,7 +27,9 @@ public class WebSpringSecurity {
     		.authorizeHttpRequests(authorize -> authorize
     											.requestMatchers(new AntPathRequestMatcher("/resources/**")).permitAll()
     											.requestMatchers("/auth/register/**").permitAll()
-    										    .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasAnyRole("ADMIN", "GUEST"))
+    										    .requestMatchers(new AntPathRequestMatcher("/admin/**")).hasAnyRole("ADMIN", "GUEST")
+    										    .requestMatchers(new AntPathRequestMatcher("/")).permitAll()
+    										    .requestMatchers(new AntPathRequestMatcher("/posts/**")).permitAll())
     		.authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated())
     		.formLogin(form -> form.loginPage("/auth/login").loginProcessingUrl("/auth/login").defaultSuccessUrl("/admin/posts").permitAll())
     		.logout(config -> config.permitAll());
