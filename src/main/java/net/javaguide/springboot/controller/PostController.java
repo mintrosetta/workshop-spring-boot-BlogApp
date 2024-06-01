@@ -17,6 +17,8 @@ import net.javaguide.springboot.dto.CommentDto;
 import net.javaguide.springboot.dto.PostDto;
 import net.javaguide.springboot.service.CommentService;
 import net.javaguide.springboot.service.PostService;
+import net.javaguide.springboot.util.Role;
+import net.javaguide.springboot.util.SecurityUtil;
 
 @Controller
 @RequestMapping("admin/posts")
@@ -32,7 +34,14 @@ public class PostController {
 	
 	@GetMapping("")
 	public String getPosts(Model model) {
-		List<PostDto> posts = this.postService.findAllPostsByUserId();
+		String role = SecurityUtil.getRole();
+		
+		List<PostDto> posts = null;
+		if (Role.ROLE_ADMIN.name().equals(role)) {
+			posts = this.postService.findAllPostsByUserId();
+		} else {
+			posts = this.postService.findAllPostsByUserId();
+		}
 		
 		model.addAttribute("posts", posts);
 		
@@ -118,7 +127,14 @@ public class PostController {
 	
 	@GetMapping("comments")
 	public String postComments(Model model) {
-		List<CommentDto> comments = this.commentService.findCommentsByPost();
+		String role = SecurityUtil.getRole();
+		
+		List<CommentDto> comments = null;
+		if (Role.ROLE_ADMIN.name().equals(role)) {
+			comments = this.commentService.findAllComments();
+		} else {
+			comments = this.commentService.findCommentsByPost();
+		}
 		
 		model.addAttribute("comments", comments);
 		
