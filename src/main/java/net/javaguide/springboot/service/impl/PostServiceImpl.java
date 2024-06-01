@@ -7,17 +7,22 @@ import org.springframework.stereotype.Service;
 
 import net.javaguide.springboot.dto.PostDto;
 import net.javaguide.springboot.entity.Post;
+import net.javaguide.springboot.entity.User;
 import net.javaguide.springboot.mapper.PostMapper;
 import net.javaguide.springboot.repository.PostRepository;
+import net.javaguide.springboot.repository.UserRepository;
 import net.javaguide.springboot.service.PostService;
+import net.javaguide.springboot.util.SecurityUtil;
 
 @Service
 public class PostServiceImpl implements PostService {
 	
 	private PostRepository postRepository;
+	private UserRepository userRepository;
 	
-	public PostServiceImpl(PostRepository postRepository) {
+	public PostServiceImpl(PostRepository postRepository, UserRepository userRepository) {
 		this.postRepository = postRepository;
+		this.userRepository = userRepository;
 	}
 
 	@Override
@@ -29,9 +34,21 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public void createPost(PostDto postDto) {
-		Post post = PostMapper.mapToPost(postDto);
-		
-		this.postRepository.save(post);
+		try {
+			String email = SecurityUtil.getCurrentUser().getUsername();
+			
+			User user = this.userRepository.findByEmail(email);
+			
+			if (user == null) throw new Exception("User not found when create post.");
+			
+			Post post = PostMapper.mapToPost(postDto);
+			post.setCreatedBy(user);
+			
+			this.postRepository.save(post);
+		}
+		catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
 	}
 
 	@Override
