@@ -118,7 +118,7 @@ public class PostController {
 	
 	@GetMapping("comments")
 	public String postComments(Model model) {
-		List<CommentDto> comments = this.commentService.findAllComments();
+		List<CommentDto> comments = this.commentService.findCommentsByPost();
 		
 		model.addAttribute("comments", comments);
 		

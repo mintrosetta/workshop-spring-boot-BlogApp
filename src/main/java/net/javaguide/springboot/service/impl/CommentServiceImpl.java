@@ -8,20 +8,25 @@ import org.springframework.stereotype.Service;
 import net.javaguide.springboot.dto.CommentDto;
 import net.javaguide.springboot.entity.Comment;
 import net.javaguide.springboot.entity.Post;
+import net.javaguide.springboot.entity.User;
 import net.javaguide.springboot.mapper.CommentMapper;
 import net.javaguide.springboot.repository.CommentRepository;
 import net.javaguide.springboot.repository.PostRepository;
+import net.javaguide.springboot.repository.UserRepository;
 import net.javaguide.springboot.service.CommentService;
+import net.javaguide.springboot.util.SecurityUtil;
 
 @Service
 public class CommentServiceImpl implements CommentService {
 
 	private CommentRepository commentRepository;
 	private PostRepository postRepository;
+	private UserRepository userRepository;
 	
-	public CommentServiceImpl(CommentRepository commentRepository, PostRepository postRepository) {
+	public CommentServiceImpl(CommentRepository commentRepository, PostRepository postRepository, UserRepository userRepository) {
 		this.commentRepository = commentRepository;
 		this.postRepository = postRepository;
+		this.userRepository = userRepository;
 	}
 	
 	@Override
@@ -44,6 +49,19 @@ public class CommentServiceImpl implements CommentService {
 	public void removeComment(Long id) {
 		this.commentRepository.deleteById(id);
 		
+	}
+
+	@Override
+	public List<CommentDto> findCommentsByPost() {
+		String email = SecurityUtil.getCurrentUser().getUsername();
+		
+		User createdBy = this.userRepository.findByEmail(email);
+
+		Long userId = createdBy.getId();
+
+		List<Comment> comments = this.commentRepository.findCommentsByPost(userId);
+		
+		return comments.stream().map(comment -> CommentMapper.mapToCommentDto(comment)).collect(Collectors.toList());
 	}
 
 }
