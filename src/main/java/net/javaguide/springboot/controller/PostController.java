@@ -32,7 +32,7 @@ public class PostController {
 	
 	@GetMapping("")
 	public String getPosts(Model model) {
-		List<PostDto> posts = this.postService.findAllPosts();
+		List<PostDto> posts = this.postService.findAllPostsByUserId();
 		
 		model.addAttribute("posts", posts);
 		
